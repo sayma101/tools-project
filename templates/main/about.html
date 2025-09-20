@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - IIUC{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">About IIUC</h1>
+                <p class="lead">
+                    International Islamic University Chittagong is a leading institution 
+                    committed to excellence in education, research, and community service.
+                </p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="https://images.pexels.com/photos/1454360/pexels-photo-1454360.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                     alt="University Building" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- University Information -->
+{% if university_info %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-5">
+                        <h2 class="text-center mb-4">{{ university_info.name }}</h2>
+                        <p class="lead text-center text-muted mb-4">
+                            Established in {{ university_info.established_year }}
+                        </p>
+                        
+                        <div class="row text-center mb-5">
+                            <div class="col-md-4 mb-3">
+                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                     style="width: 80px; height: 80px;">
+                                    <i class="bi bi-people-fill fs-2"></i>
+                                </div>
+                                <h4 class="fw-bold">{{ university_info.total_students|default:"5000+" }}</h4>
+                                <p class="text-muted">Students</p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                     style="width: 80px; height: 80px;">
+                                    <i class="bi bi-person-workspace fs-2"></i>
+                                </div>
+                                <h4 class="fw-bold">{{ university_info.total_faculty|default:"300+" }}</h4>
+                                <p class="text-muted">Faculty</p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                     style="width: 80px; height: 80px;">
+                                    <i class="bi bi-book-fill fs-2"></i>
+                                </div>
+                                <h4 class="fw-bold">{{ university_info.total_programs|default:"50+" }}</h4>
+                                <p class="text-muted">Programs</p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <p class="fs-5">{{ university_info.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Mission & Vision -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-bullseye text-primary" style="font-size: 3rem;"></i>
+                        </div>
+                        <h3 class="text-center mb-4">Our Mission</h3>
+                        <p class="text-center">
+                            To provide quality education rooted in Islamic values, fostering 
+                            intellectual growth, moral development, and social responsibility 
+                            among our students to serve humanity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-eye text-success" style="font-size: 3rem;"></i>
+                        </div>
+                        <h3 class="text-center mb-4">Our Vision</h3>
+                        <p class="text-center">
+                            To be a leading Islamic university recognized globally for 
+                            academic excellence, innovative research, and producing 
+                            graduates who contribute positively to society.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Our Core Values</h2>
+            <p class="lead text-muted">The principles that guide everything we do</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="text-center">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                         style="width: 100px; height: 100px;">
+                        <i class="bi bi-book fs-1"></i>
+                    </div>
+                    <h4>Excellence</h4>
+                    <p class="text-muted">Striving for the highest standards in education and research</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="text-center">
+                    <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                         style="width: 100px; height: 100px;">
+                        <i class="bi bi-heart fs-1"></i>
+                    </div>
+                    <h4>Integrity</h4>
+                    <p class="text-muted">Upholding honesty, transparency, and ethical conduct</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="text-center">
+                    <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                         style="width: 100px; height: 100px;">
+                        <i class="bi bi-lightbulb fs-1"></i>
+                    </div>
+                    <h4>Innovation</h4>
+                    <p class="text-muted">Embracing creativity and new approaches to learning</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="text-center">
+                    <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                         style="width: 100px; height: 100px;">
+                        <i class="bi bi-people fs-1"></i>
+                    </div>
+                    <h4>Community</h4>
+                    <p class="text-muted">Building strong relationships and serving society</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Faculty Highlights -->
+{% if faculty_members %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Meet Our Faculty</h2>
+            <p class="lead text-muted">Distinguished educators and researchers</p>
+        </div>
+        
+        <div class="row">
+            {% for faculty in faculty_members %}
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm text-center">
+                    <div class="card-body p-4">
+                        {% if faculty.profile_picture %}
+                            <img src="{{ faculty.profile_picture.url }}" alt="{{ faculty.user.get_full_name }}" 
+                                 class="rounded-circle mb-3" width="80" height="80" style="object-fit: cover;">
+                        {% else %}
+                            <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                 style="width: 80px; height: 80px;">
+                                <i class="bi bi-person-fill text-white fs-3"></i>
+                            </div>
+                        {% endif %}
+                        <h6 class="fw-bold">{{ faculty.user.get_full_name }}</h6>
+                        <p class="text-primary small">{{ faculty.get_designation_display }}</p>
+                        <p class="text-muted small">{{ faculty.department.name }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'accounts:faculty_list' %}" class="btn btn-primary btn-lg">
+                View All Faculty
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Contact Information -->
+{% if university_info %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-5 text-center">
+                        <h3 class="mb-4">Get in Touch</h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <i class="bi bi-geo-alt text-primary fs-2 mb-3"></i>
+                                <h6>Address</h6>
+                                <p class="text-muted">{{ university_info.address }}</p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <i class="bi bi-telephone text-success fs-2 mb-3"></i>
+                                <h6>Phone</h6>
+                                <p class="text-muted">{{ university_info.phone }}</p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <i class="bi bi-envelope text-info fs-2 mb-3"></i>
+                                <h6>Email</h6>
+                                <p class="text-muted">{{ university_info.email }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a href="{% url 'main:contact' %}" class="btn btn-primary btn-lg">
+                                Contact Us
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

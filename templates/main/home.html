@@ -1,0 +1,320 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - International Islamic University Chittagong{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center min-vh-50">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">
+                    Welcome to International Islamic University Chittagong
+                </h1>
+                <p class="lead mb-4">
+                    Empowering minds, nurturing souls, and building tomorrow's leaders through 
+                    excellence in education, research, and community service.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{% url 'accounts:register' %}" class="btn btn-light btn-lg">
+                        <i class="bi bi-person-plus me-2"></i>Apply Now
+                    </a>
+                    <a href="{% url 'main:about' %}" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-info-circle me-2"></i>Learn More
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                     alt="University Campus" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+{% if university_info %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                        <i class="bi bi-people-fill text-primary fs-1 mb-3"></i>
+                        <h3 class="fw-bold text-primary">{{ university_info.total_students|default:"5000+" }}</h3>
+                        <p class="text-muted">Students</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                        <i class="bi bi-person-workspace text-success fs-1 mb-3"></i>
+                        <h3 class="fw-bold text-success">{{ university_info.total_faculty|default:"300+" }}</h3>
+                        <p class="text-muted">Faculty Members</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                        <i class="bi bi-book-fill text-warning fs-1 mb-3"></i>
+                        <h3 class="fw-bold text-warning">{{ university_info.total_programs|default:"50+" }}</h3>
+                        <p class="text-muted">Programs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                        <i class="bi bi-calendar-event text-info fs-1 mb-3"></i>
+                        <h3 class="fw-bold text-info">{{ university_info.established_year|default:"1995" }}</h3>
+                        <p class="text-muted">Established</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Featured Courses Section -->
+{% if featured_courses %}
+<section class="py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="display-5 fw-bold mb-3">Featured Courses</h2>
+                <p class="lead text-muted">Discover our most popular and innovative programs</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for course in featured_courses %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-sm hover-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge bg-primary">{{ course.get_level_display }}</span>
+                            <small class="text-muted">{{ course.credits }} Credits</small>
+                        </div>
+                        <h5 class="card-title">{{ course.name }}</h5>
+                        <p class="text-muted mb-2">{{ course.code }}</p>
+                        <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="bi bi-person me-1"></i>
+                                    {{ course.instructor.user.get_full_name }}
+                                </small>
+                                <a href="{{ course.get_absolute_url }}" class="btn btn-outline-primary btn-sm">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'courses:course_list' %}" class="btn btn-primary btn-lg">
+                <i class="bi bi-arrow-right me-2"></i>View All Courses
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Featured Faculty Section -->
+{% if featured_faculty %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="display-5 fw-bold mb-3">Meet Our Faculty</h2>
+                <p class="lead text-muted">Learn from distinguished educators and researchers</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for faculty in featured_faculty %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-sm hover-card">
+                    <div class="card-body text-center">
+                        {% if faculty.profile_picture %}
+                            <img src="{{ faculty.profile_picture.url }}" alt="{{ faculty.user.get_full_name }}" 
+                                 class="rounded-circle mb-3" width="100" height="100" style="object-fit: cover;">
+                        {% else %}
+                            <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                 style="width: 100px; height: 100px;">
+                                <i class="bi bi-person-fill text-white fs-1"></i>
+                            </div>
+                        {% endif %}
+                        <h5 class="card-title">{{ faculty.user.get_full_name }}</h5>
+                        <p class="text-primary fw-semibold">{{ faculty.get_designation_display }}</p>
+                        <p class="text-muted">{{ faculty.department.name }}</p>
+                        <p class="card-text">{{ faculty.specialization }}</p>
+                        <a href="{{ faculty.get_absolute_url }}" class="btn btn-outline-primary">
+                            View Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'accounts:faculty_list' %}" class="btn btn-primary btn-lg">
+                <i class="bi bi-arrow-right me-2"></i>View All Faculty
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Recent Events Section -->
+{% if recent_events %}
+<section class="py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="display-5 fw-bold mb-3">Upcoming Events</h2>
+                <p class="lead text-muted">Stay updated with campus activities and important dates</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for event in recent_events %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-sm hover-card">
+                    {% if event.image %}
+                        <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top bg-primary d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="bi bi-calendar-event text-white" style="font-size: 3rem;"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-{{ event.event_type|default:'primary' }}">{{ event.get_event_type_display }}</span>
+                            <small class="text-muted">{{ event.start_date|date:"M d, Y" }}</small>
+                        </div>
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text">{{ event.description|truncatewords:15 }}</p>
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="bi bi-geo-alt me-1"></i>{{ event.location }}
+                                </small>
+                                <a href="{{ event.get_absolute_url }}" class="btn btn-outline-primary btn-sm">
+                                    Learn More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'events:event_list' %}" class="btn btn-primary btn-lg">
+                <i class="bi bi-arrow-right me-2"></i>View All Events
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Gallery Preview Section -->
+{% if featured_images %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="display-5 fw-bold mb-3">Campus Life</h2>
+                <p class="lead text-muted">Experience the vibrant life at our university</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for image in featured_images %}
+            <div class="col-lg-2 col-md-4 col-6 mb-4">
+                <div class="gallery-item">
+                    <img src="{{ image.image.url }}" alt="{{ image.title }}" 
+                         class="img-fluid rounded shadow-sm hover-zoom" 
+                         style="height: 150px; width: 100%; object-fit: cover;">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'main:gallery' %}" class="btn btn-primary btn-lg">
+                <i class="bi bi-images me-2"></i>View Gallery
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Call to Action Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-4">Ready to Start Your Journey?</h2>
+                <p class="lead mb-4">
+                    Join thousands of students who have chosen IIUC for their higher education. 
+                    Take the first step towards a brighter future.
+                </p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="{% url 'accounts:register' %}" class="btn btn-light btn-lg">
+                        <i class="bi bi-person-plus me-2"></i>Register Now
+                    </a>
+                    <a href="{% url 'main:contact' %}" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-envelope me-2"></i>Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.hero-section {
+    background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+}
+
+.min-vh-50 {
+    min-height: 50vh;
+}
+
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.hover-zoom {
+    transition: transform 0.3s ease;
+}
+
+.hover-zoom:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 0.375rem;
+}
+</style>
+{% endblock %}
